@@ -10,6 +10,9 @@ namespace Assignment7
         //Constants
         private const int cPixelSize = 32; //A block is 32 pixels big
         private const string cFileName = "TetrisScores.txt";
+        private const int cRotationCoolDownInMilliSeconds = 200; //Only allow rotation every 200ms
+
+        private DateTime mLastRotationTime;
 
         //Game Box
         private const int cCanvasGameWidth = 10; //Game is 10 blocks wide
@@ -194,6 +197,8 @@ namespace Assignment7
             int xMove = 0;
             int yMove = 0;
 
+            bool sRotationSuccess = false;
+
             //Get the input
             switch (e.KeyCode)
             {
@@ -207,10 +212,21 @@ namespace Assignment7
                     yMove = 1;
                     break;
                 case (Keys.Z):
-                    mCurrentShape.RotateShapeCounterClockWise();
+                    if(IsRotationAllowed())
+                    {
+                        sRotationSuccess = true;
+                        mLastRotationTime = DateTime.Now;
+                        mCurrentShape.RotateShapeCounterClockWise();
+                    }
+                    
                     break;
                 case (Keys.X):
-                    mCurrentShape.RotateShapeClockWise();
+                    if(IsRotationAllowed())
+                    {
+                        sRotationSuccess = true;
+                        mLastRotationTime = DateTime.Now;
+                        mCurrentShape.RotateShapeClockWise();
+                    }
                     break;
                 case (Keys.Enter):
                     PauseGame();
@@ -226,11 +242,24 @@ namespace Assignment7
             {
                 mCurrentShape.SetShapeToOldDots();
             }
-            else if (successfulMove && (e.KeyCode == Keys.X || e.KeyCode == Keys.Z) && mCurrentShape.Name != "O")
+            else if (successfulMove && (e.KeyCode == Keys.X || e.KeyCode == Keys.Z) && mCurrentShape.Name != "O" && sRotationSuccess)
             {
                 //If the move was successful and it was a rotation: play sound effect
                 PlaySoundEffect(SoundEffects.RotateShape);
             }
+        }
+
+        /// <summary>
+        /// Checks wether or not rotation of the shape is allowed 
+        /// </summary>
+        /// <returns>True if rotation is allowed, false otherwise</returns>
+        private bool IsRotationAllowed()
+        {
+            if((DateTime.Now-mLastRotationTime).TotalMilliseconds >= cRotationCoolDownInMilliSeconds)
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>

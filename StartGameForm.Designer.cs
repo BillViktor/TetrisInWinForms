@@ -35,6 +35,9 @@
             lblMusic = new Label();
             radioBtnMusicOn = new RadioButton();
             radioBtnMusicOff = new RadioButton();
+            lblControls = new Label();
+            label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
             // textBoxLvl
@@ -100,7 +103,7 @@
             lblMusic.BackColor = Color.Black;
             lblMusic.Font = new Font("Consolas", 36F);
             lblMusic.ForeColor = Color.White;
-            lblMusic.Location = new Point(10, 366);
+            lblMusic.Location = new Point(15, 167);
             lblMusic.Name = "lblMusic";
             lblMusic.Size = new Size(180, 56);
             lblMusic.TabIndex = 15;
@@ -111,7 +114,7 @@
             radioBtnMusicOn.AutoSize = true;
             radioBtnMusicOn.Font = new Font("Consolas", 36F);
             radioBtnMusicOn.ForeColor = Color.White;
-            radioBtnMusicOn.Location = new Point(199, 364);
+            radioBtnMusicOn.Location = new Point(204, 165);
             radioBtnMusicOn.Name = "radioBtnMusicOn";
             radioBtnMusicOn.Size = new Size(94, 60);
             radioBtnMusicOn.TabIndex = 16;
@@ -124,7 +127,7 @@
             radioBtnMusicOff.AutoSize = true;
             radioBtnMusicOff.Font = new Font("Consolas", 36F);
             radioBtnMusicOff.ForeColor = Color.White;
-            radioBtnMusicOff.Location = new Point(311, 366);
+            radioBtnMusicOff.Location = new Point(316, 167);
             radioBtnMusicOff.Name = "radioBtnMusicOff";
             radioBtnMusicOff.Size = new Size(120, 60);
             radioBtnMusicOff.TabIndex = 17;
@@ -132,12 +135,51 @@
             radioBtnMusicOff.Text = "OFF";
             radioBtnMusicOff.UseVisualStyleBackColor = true;
             // 
+            // lblControls
+            // 
+            lblControls.AutoSize = true;
+            lblControls.BackColor = Color.Black;
+            lblControls.Font = new Font("Consolas", 36F);
+            lblControls.ForeColor = Color.White;
+            lblControls.Location = new Point(17, 285);
+            lblControls.Name = "lblControls";
+            lblControls.Size = new Size(232, 56);
+            lblControls.TabIndex = 18;
+            lblControls.Text = "CONTROLS";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Black;
+            label1.Font = new Font("Consolas", 36F);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(17, 350);
+            label1.Name = "label1";
+            label1.Size = new Size(674, 56);
+            label1.TabIndex = 18;
+            label1.Text = "ARROW KEYS TO MOVE SHAPES";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Black;
+            label2.Font = new Font("Consolas", 36F);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(18, 418);
+            label2.Name = "label2";
+            label2.Size = new Size(622, 56);
+            label2.TabIndex = 18;
+            label2.Text = "Z AND X TO ROTATE SHAPE";
+            // 
             // StartGameForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(704, 661);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(lblControls);
             Controls.Add(radioBtnMusicOff);
             Controls.Add(radioBtnMusicOn);
             Controls.Add(lblMusic);
@@ -164,5 +206,8 @@
         private Label lblMusic;
         private RadioButton radioBtnMusicOn;
         private RadioButton radioBtnMusicOff;
+        private Label lblControls;
+        private Label label1;
+        private Label label2;
     }
 }
