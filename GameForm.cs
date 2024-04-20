@@ -165,7 +165,7 @@ namespace Assignment7
                 for (int y = 0; y < mCurrentShape.Height; y++)
                 {
                     //If the shape has a block there (1 == block, 0 == empty)
-                    if (mCurrentShape.Pixels[y, x] == 1)
+                    if (mCurrentShape.Pixels[y, x] != null)
                     {
                         //Check if the game is over (the shape is above the game array)
                         CheckIfGameIsOver();
@@ -322,7 +322,7 @@ namespace Assignment7
             {
                 for (int y = 0; y < mCurrentShape.Height; y++)
                 {
-                    if (newPosY + y > 0 && mCanvasGameArray[newPosX + x, newPosY + y] != null && mCurrentShape.Pixels[y, x] == 1)
+                    if (newPosY + y > 0 && mCanvasGameArray[newPosX + x, newPosY + y] != null && mCurrentShape.Pixels[y, x] != null)
                     {
                         return false;
                     }
@@ -365,7 +365,7 @@ namespace Assignment7
             {
                 for (int y = 0; y < shape.Height; y++)
                 {
-                    if (shape.Pixels[y, x] == 1)
+                    if (shape.Pixels[y, x] != null)
                     {
                         Bitmap sprite = GetSprite(shape.Color);
                         mCanvasNextShapeGraphics.DrawImage(sprite, (posX + x) * cDotSize, (posY + y) * cDotSize, cDotSize, cDotSize);
@@ -534,7 +534,7 @@ namespace Assignment7
             {
                 for (int y = 0; y < mCurrentShape.Height; y++)
                 {
-                    if (mCurrentShape.Pixels[y, x] == 1)
+                    if (mCurrentShape.Pixels[y, x] != null)
                     {
                         Bitmap bitmap = GetSprite(mCurrentShape.Color);
                         mCurrentGraphics.DrawImage(bitmap, (mCurrentShape.PositionX + x) * cDotSize, (mCurrentShape.PositionY + y) * cDotSize, cDotSize, cDotSize);
@@ -552,7 +552,7 @@ namespace Assignment7
             {
                 for (int y = 0; y < shape.Height; y++)
                 {
-                    if (shape.Pixels[y, x] == 1)
+                    if (shape.Pixels[y, x] != null)
                     {
                         Bitmap sprite = GetSprite(shape.Color);
                         mCanvasStatisticsGraphics.DrawImage(sprite, (xPos + x) * cDotSize / 2, (yPos + y) * cDotSize / 2, cDotSize / 2, cDotSize / 2);
@@ -661,6 +661,9 @@ namespace Assignment7
             InitializeNextShapeBox();
             ReadHighScoreList();
             InitializeMusic();
+
+            //Set level text 
+            lblLevel.Text = mLevel.ToString("00");
         }
 
         /// <summary>

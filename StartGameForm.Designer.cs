@@ -149,7 +149,8 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "StartGameForm";
-            Text = "StartGameForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Tetris in WinForms";
             ResumeLayout(false);
             PerformLayout();
         }

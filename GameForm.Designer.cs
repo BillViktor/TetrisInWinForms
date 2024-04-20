@@ -377,7 +377,8 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "GameForm";
-            Text = "Tetris by Viktor Bill";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Tetris in WinForms";
             KeyDown += MainForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)pictureBoxGame).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStatistics).EndInit();

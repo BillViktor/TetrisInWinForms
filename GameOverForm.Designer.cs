@@ -143,7 +143,8 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "GameOverForm";
-            Text = "GameOverForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Tetris in WinForms";
             panelSaveHighScore.ResumeLayout(false);
             panelSaveHighScore.PerformLayout();
             ResumeLayout(false);

@@ -131,7 +131,8 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "HighScoreForm";
-            Text = "HighScoreForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Tetris in WinForms";
             ResumeLayout(false);
             PerformLayout();
         }

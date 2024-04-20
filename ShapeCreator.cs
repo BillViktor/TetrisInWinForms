@@ -18,12 +18,12 @@
                     Name = "I",
                     Width = 1,
                     Height = 4,
-                    Pixels = new int[,]
+                    Pixels = new SpriteModel[,]
                     {
-                        { 1, },
-                        { 1, },
-                        { 1, },
-                        { 1, }
+                        { new SpriteModel(), },
+                        { new SpriteModel(), },
+                        { new SpriteModel(), },
+                        { new SpriteModel(), }
                     }
                 },
                 new ShapeModel
@@ -31,10 +31,10 @@
                     Name = "O",
                     Width = 2,
                     Height = 2,
-                    Pixels = new int[,]
+                    Pixels = new SpriteModel[,]
                     {
-                        { 1, 1 },
-                        { 1, 1 }
+                        { new SpriteModel(), new SpriteModel() },
+                        { new SpriteModel(), new SpriteModel() }
                     }
                 },
                 new ShapeModel
@@ -42,10 +42,10 @@
                     Name = "T",
                     Width = 3,
                     Height = 2,
-                    Pixels = new int[,]
+                    Pixels = new SpriteModel[,]
                     {
-                        { 0, 1, 0 },
-                        { 1, 1, 1 }
+                        { null, new SpriteModel(), null },
+                        { new SpriteModel(), new SpriteModel(), new SpriteModel() }
                     }
                 },
                 new ShapeModel
@@ -53,10 +53,10 @@
                     Name = "L",
                     Width = 3,
                     Height = 2,
-                    Pixels = new int[,]
+                    Pixels = new SpriteModel[,]
                     {
-                        { 0, 0, 1 },
-                        { 1, 1, 1 }
+                        { null, null, new SpriteModel() },
+                        { new SpriteModel(), new SpriteModel(), new SpriteModel() }
                     }
                 },
                 new ShapeModel
@@ -64,10 +64,10 @@
                     Name = "J",
                     Width = 3,
                     Height = 2,
-                    Pixels = new int[,]
+                    Pixels = new SpriteModel[,]
                     {
-                        { 1, 0, 0 },
-                        { 1, 1, 1 }
+                        { new SpriteModel(), null, null },
+                        { new SpriteModel(), new SpriteModel(), new SpriteModel() }
                     }
                 },
                 new ShapeModel
@@ -75,10 +75,10 @@
                     Name = "Z",
                     Width = 3,
                     Height = 2,
-                    Pixels = new int[,]
+                    Pixels = new SpriteModel[,]
                     {
-                        { 1, 1, 0 },
-                        { 0, 1, 1 }
+                        { new SpriteModel(), new SpriteModel(), null },
+                        { null, new SpriteModel(), new SpriteModel() }
                     }
                 },
                 new ShapeModel
@@ -86,10 +86,10 @@
                     Name = "S",
                     Width = 3,
                     Height = 2,
-                    Pixels = new int[,]
+                    Pixels = new SpriteModel[,]
                     {
-                        { 0, 1, 1 },
-                        { 1, 1, 0 }
+                        { null, new SpriteModel(), new SpriteModel() },
+                        { new SpriteModel(), new SpriteModel(), null }
                     }
                 }
             ];

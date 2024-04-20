@@ -122,7 +122,8 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MenuForm";
-            Text = "MenuForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Tetris in WinForms";
             ResumeLayout(false);
             PerformLayout();
         }
