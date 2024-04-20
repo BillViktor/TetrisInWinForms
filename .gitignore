@@ -361,3 +361,14 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Resources/Audio/Sound Effects/GameOverSound.wav
+/Resources/Audio/Sound Effects/LevelUpSound.wav
+/Resources/Audio/Sound Effects/MoveShapeSound.wav
+/Resources/Audio/Sound Effects/RotateShape.wav
+/Resources/Audio/Sound Effects/RowsCleared.wav
+/Resources/Audio/Sound Effects/ShapeLanded.wav
+/Resources/Audio/Sound Effects/Tetris.wav
+/Resources/Audio/Music/Tetris.wav
+/Resources/Audio/Music/TetrisFast.wav
+/Resources/Audio/Music/TetrisStatistics.wav
+/Resources/Audio/Music/TetrisTitleScreen.wav
