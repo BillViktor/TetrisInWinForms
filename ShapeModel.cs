@@ -59,12 +59,11 @@
 
             mPixels = new SpriteModel[mWidth, mHeight];
 
-            //Start the other way instead
-            for (int x = mWidth -1; x >= 0; x--)
+            for (int x = 0; x < mWidth; x++)
             {
                 for (int y = 0; y < mHeight; y++)
                 {
-                    mPixels[x, y] = mOldPixels[mHeight - 1 - y, x];
+                    mPixels[x, y] = mOldPixels[y, mWidth - 1 - x];
                 }
             }
 

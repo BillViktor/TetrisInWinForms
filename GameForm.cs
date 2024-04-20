@@ -8,7 +8,7 @@ namespace Assignment7
     {
         //Fields
         //Constants
-        private const int cDotSize = 32; //A block is 32 pixels big
+        private const int cPixelSize = 32; //A block is 32 pixels big
         private const string cFileName = "TetrisScores.txt";
 
         //Game Box
@@ -168,9 +168,8 @@ namespace Assignment7
                     if (mCurrentShape.Pixels[y, x] != null)
                     {
                         //Check if the game is over (the shape is above the game array)
-                        CheckIfGameIsOver();
+                        if(CheckIfGameIsOver()) return;
 
-                        //If not, paint the array there
                         mCanvasGameArray[mCurrentShape.PositionX + x, mCurrentShape.PositionY + y] = new SpriteModel(mCurrentShape.Color);
                     }
                 }
@@ -368,7 +367,7 @@ namespace Assignment7
                     if (shape.Pixels[y, x] != null)
                     {
                         Bitmap sprite = GetSprite(shape.Color);
-                        mCanvasNextShapeGraphics.DrawImage(sprite, (posX + x) * cDotSize, (posY + y) * cDotSize, cDotSize, cDotSize);
+                        mCanvasNextShapeGraphics.DrawImage(sprite, (posX + x) * cPixelSize, (posY + y) * cPixelSize, cPixelSize, cPixelSize);
                     }
                 }
             }
@@ -441,12 +440,12 @@ namespace Assignment7
                         mCanvasGameGraphics = Graphics.FromImage(mCanvasGameBitmap);
                         if (mCanvasGameArray[x, y] == null)
                         {
-                            mCanvasGameGraphics.FillRectangle(Brushes.Black, x * cDotSize, y * cDotSize, cDotSize, cDotSize);
+                            mCanvasGameGraphics.FillRectangle(Brushes.Black, x * cPixelSize, y * cPixelSize, cPixelSize, cPixelSize);
                         }
                         else
                         {
                             Bitmap bitmap = GetSprite(mCanvasGameArray[x, y].Color);
-                            mCanvasGameGraphics.DrawImage(bitmap, x * cDotSize, y * cDotSize, cDotSize, cDotSize);
+                            mCanvasGameGraphics.DrawImage(bitmap, x * cPixelSize, y * cPixelSize, cPixelSize, cPixelSize);
                         }
                     }
                 }
@@ -491,22 +490,26 @@ namespace Assignment7
         /// <summary>
         /// Checks if the game is over, restarts the application
         /// </summary>
-        private void CheckIfGameIsOver()
+        private bool CheckIfGameIsOver()
         {
             if (mCurrentShape.PositionY < 0)
             {
+                timer.Stop();
                 StopMusic();
                 PlaySoundEffect(SoundEffects.GameOverSound);
-                timer.Stop();
 
                 bool sAskUserForHighScore = false;
 
                 //If the number of high scores is less than 5, or if the player scored higher than the lowest of the 5 saved (a non zero score), the user will be asked to enter their name
-                if(mScores.Count < 5 && mScore > 0)
+                if(mScores.Count == 0)
                 {
                     sAskUserForHighScore = true;
                 }
-                else if(mScores.Min(x => x.Score) < mScore && mScore > 0)
+                else if (mScores.Count < 5 && mScore > 0)
+                {
+                    sAskUserForHighScore = true;
+                }
+                else if (mScores.Min(x => x.Score) < mScore && mScore > 0)
                 {
                     sAskUserForHighScore = true;
                 }
@@ -514,8 +517,11 @@ namespace Assignment7
                 Hide();
                 GameOverForm sGameOverForm = new GameOverForm(mScore, sAskUserForHighScore);
                 sGameOverForm.Show();
-                Close();
+
+                return true;
             }
+
+            return false;
         }
         #endregion
 
@@ -537,7 +543,7 @@ namespace Assignment7
                     if (mCurrentShape.Pixels[y, x] != null)
                     {
                         Bitmap bitmap = GetSprite(mCurrentShape.Color);
-                        mCurrentGraphics.DrawImage(bitmap, (mCurrentShape.PositionX + x) * cDotSize, (mCurrentShape.PositionY + y) * cDotSize, cDotSize, cDotSize);
+                        mCurrentGraphics.DrawImage(bitmap, (mCurrentShape.PositionX + x) * cPixelSize, (mCurrentShape.PositionY + y) * cPixelSize, cPixelSize, cPixelSize);
                     }
                 }
             }
@@ -555,7 +561,7 @@ namespace Assignment7
                     if (shape.Pixels[y, x] != null)
                     {
                         Bitmap sprite = GetSprite(shape.Color);
-                        mCanvasStatisticsGraphics.DrawImage(sprite, (xPos + x) * cDotSize / 2, (yPos + y) * cDotSize / 2, cDotSize / 2, cDotSize / 2);
+                        mCanvasStatisticsGraphics.DrawImage(sprite, (xPos + x) * cPixelSize / 2, (yPos + y) * cPixelSize / 2, cPixelSize / 2, cPixelSize / 2);
                     }
                 }
             }
@@ -672,8 +678,8 @@ namespace Assignment7
         private void InitializeGameBox()
         {
             //Set all pictures boxes to the set width and height
-            pictureBoxGame.Width = cCanvasGameWidth * cDotSize;
-            pictureBoxGame.Height = cCanvasGameHeight * cDotSize;
+            pictureBoxGame.Width = cCanvasGameWidth * cPixelSize;
+            pictureBoxGame.Height = cCanvasGameHeight * cPixelSize;
 
             //Create Bitmap with picture box's size
             mCanvasGameBitmap = new Bitmap(pictureBoxGame.Width, pictureBoxGame.Height);
@@ -693,8 +699,8 @@ namespace Assignment7
         private void InitializeNextShapeBox()
         {
             //Set all pictures boxes to the set width and height
-            pictureBoxNext.Width = mCanvasNextShapeWidth * cDotSize;
-            pictureBoxNext.Height = mCanvasNextShapeHeight * cDotSize;
+            pictureBoxNext.Width = mCanvasNextShapeWidth * cPixelSize;
+            pictureBoxNext.Height = mCanvasNextShapeHeight * cPixelSize;
 
             //Create Bitmap with picture box's size
             mCanvasNextShapeBitmap = new Bitmap(pictureBoxNext.Width, pictureBoxNext.Height);
@@ -711,8 +717,8 @@ namespace Assignment7
         private void InitializeStatisticsBox()
         {
             //Set all pictures boxes to the set width and height
-            pictureBoxStatistics.Width = cCanvasStatisticsWidth * cDotSize;
-            pictureBoxStatistics.Height = cCanvasStatisticsHeight * cDotSize;
+            pictureBoxStatistics.Width = cCanvasStatisticsWidth * cPixelSize;
+            pictureBoxStatistics.Height = cCanvasStatisticsHeight * cPixelSize;
 
             //Create Bitmap with picture box's size
             mCanvasStatisticsBitmap = new Bitmap(pictureBoxStatistics.Width, pictureBoxStatistics.Height);
