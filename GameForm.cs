@@ -13,6 +13,7 @@ namespace Assignment7
         private const int cRotationCoolDownInMilliSeconds = 200; //Only allow rotation every 200ms
 
         private DateTime mLastRotationTime;
+        private DateTime mLastPauseTime;
 
         //Game Box
         private const int cCanvasGameWidth = 10; //Game is 10 blocks wide
@@ -267,6 +268,11 @@ namespace Assignment7
         /// </summary>
         private void PauseGame()
         {
+            //Check the cooldown first
+            if ((DateTime.Now - mLastPauseTime).TotalMilliseconds < cRotationCoolDownInMilliSeconds) return;
+
+            mLastPauseTime = DateTime.Now;
+
             //If the game is currently paused, unpause it
             if (mGameIsPaused)
             {
