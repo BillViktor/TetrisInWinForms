@@ -44,7 +44,6 @@ namespace Assignment7
         private int mShapeCountS = 0;
         private int mLineCount = 0;
         private int mLevel = 0;
-        private int mTimerInterval;
 
         //Game fields
         private Bitmap mCurrentBitmap;
@@ -63,9 +62,14 @@ namespace Assignment7
         private List<ScoreModel> mScores;
         private FileManager mFileManager;
 
+        private ShapeCreator mShapeCreator;
+
         public GameForm(bool aMusicOn, int aStartLvl)
         {
             InitializeComponent();
+
+            //Initialize the Shape Creator
+            mShapeCreator = new ShapeCreator();
 
             //Set the music & startlvl field field
             mMusicOn = aMusicOn;
@@ -241,7 +245,7 @@ namespace Assignment7
             //If the move was unsuccessful and the player tried to rotate the shape, revert it
             if (!successfulMove && (e.KeyCode == Keys.X || e.KeyCode == Keys.Z))
             {
-                mCurrentShape.SetShapeToOldDots();
+                mCurrentShape.UndoRotation();
             }
             else if (successfulMove && (e.KeyCode == Keys.X || e.KeyCode == Keys.Z) && mCurrentShape.Name != "O" && sRotationSuccess)
             {
@@ -342,11 +346,11 @@ namespace Assignment7
         private bool MoveShape(int moveDown, int moveSide)
         {
             //Get the new position of the shape
-            int newPosX = mCurrentShape.PositionX + moveSide;
-            int newPosY = mCurrentShape.PositionY + moveDown;
+            int sNewPosX = mCurrentShape.PositionX + moveSide;
+            int sNewPosY = mCurrentShape.PositionY + moveDown;
 
             //Check if the shape will the bottom or side
-            if (newPosX < 0 || newPosX + mCurrentShape.Width > cCanvasGameWidth || newPosY + mCurrentShape.Height > cCanvasGameHeight)
+            if (sNewPosX < 0 || sNewPosX + mCurrentShape.Width > cCanvasGameWidth || sNewPosY + mCurrentShape.Height > cCanvasGameHeight)
             {
                 return false;
             }
@@ -356,7 +360,7 @@ namespace Assignment7
             {
                 for (int y = 0; y < mCurrentShape.Height; y++)
                 {
-                    if (newPosY + y > 0 && mCanvasGameArray[newPosX + x, newPosY + y] != null && mCurrentShape.Pixels[y, x] != null)
+                    if (sNewPosY + y > 0 && mCanvasGameArray[sNewPosX + x, sNewPosY + y] != null && mCurrentShape.Pixels[y, x] != null)
                     {
                         return false;
                     }
@@ -364,8 +368,8 @@ namespace Assignment7
             }
 
             //Set the new position of the shape
-            mCurrentShape.PositionX = newPosX;
-            mCurrentShape.PositionY = newPosY;
+            mCurrentShape.PositionX = sNewPosX;
+            mCurrentShape.PositionY = sNewPosY;
 
             //Play sound effect if we move sideways
             if (moveSide != 0)
@@ -420,7 +424,7 @@ namespace Assignment7
         private ShapeModel GetRandomShape()
         {
             //Get a random shape with a random color
-            ShapeModel shape = ShapeCreator.GetRandomShape();
+            ShapeModel shape = mShapeCreator.GetRandomShape();
 
             shape.PositionX = cCanvasGameWidth / 2; //Set the X position to the middle
             shape.PositionY = -shape.Height; //Set Y position to negative the shapes height (so it starts above the game window)
@@ -519,7 +523,7 @@ namespace Assignment7
             lblLevel.Text = mLevel.ToString("00");
 
             //Set the speed
-            SetSpeedForLevel();
+            timer.Interval = SetSpeedForLevel();
         }
 
         /// <summary>
@@ -786,13 +790,13 @@ namespace Assignment7
             //Get all shapes to show in the statistics, in the following order
             ShapeModel[] shapes =
             {
-                ShapeCreator.GetShapeByName("T"),
-                ShapeCreator.GetShapeByName("J"),
-                ShapeCreator.GetShapeByName("Z"),
-                ShapeCreator.GetShapeByName("O"),
-                ShapeCreator.GetShapeByName("S"),
-                ShapeCreator.GetShapeByName("L"),
-                ShapeCreator.GetShapeByName("I"),
+                mShapeCreator.GetShapeByName("T"),
+                mShapeCreator.GetShapeByName("J"),
+                mShapeCreator.GetShapeByName("Z"),
+                mShapeCreator.GetShapeByName("O"),
+                mShapeCreator.GetShapeByName("S"),
+                mShapeCreator.GetShapeByName("L"),
+                mShapeCreator.GetShapeByName("I"),
             };
 
             //Draw each shape with the helper method

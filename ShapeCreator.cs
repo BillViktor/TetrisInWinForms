@@ -1,15 +1,15 @@
 ﻿namespace Assignment7
 {
-    public static class ShapeCreator
+    public class ShapeCreator
     {
         //Private fields
-        private static ShapeModel[] mShapes;
-        private static Color[] mColors;
+        private ShapeModel[] mShapes;
+        private Color[] mColors;
 
         /// <summary>
         /// Static constructor, initializes the arrays and sets all the shapes and possible colors
         /// </summary>
-        static ShapeCreator()
+        public ShapeCreator()
         {
             mShapes =
             [
@@ -20,10 +20,10 @@
                     Height = 4,
                     Pixels = new SpriteModel[,]
                     {
-                        { new SpriteModel(), },
-                        { new SpriteModel(), },
-                        { new SpriteModel(), },
-                        { new SpriteModel(), }
+                        { new SpriteModel() },
+                        { new SpriteModel() },
+                        { new SpriteModel() },
+                        { new SpriteModel() }
                     }
                 },
                 new ShapeModel
@@ -109,7 +109,7 @@
         /// Generates a random number for shape and color and returns the shape
         /// </summary>
         /// <returns>A random shape</returns>
-        public static ShapeModel GetRandomShape()
+        public ShapeModel GetRandomShape()
         {
             Random random = new Random();
             int randomShape = random.Next(mShapes.Length);
@@ -124,7 +124,7 @@
         /// </summary>
         /// <param name="name">The name of the shape</param>
         /// <returns>The shape</returns>
-        public static ShapeModel GetShapeByName(string aName)
+        public ShapeModel GetShapeByName(string aName)
         {
             ShapeModel shape = null;
 

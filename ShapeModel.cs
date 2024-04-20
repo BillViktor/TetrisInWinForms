@@ -68,19 +68,19 @@
             }
 
             //Save the current width in a temporary variable
-            int tempWidth = mWidth;
+            int sTempWidth = mWidth;
 
             //Set the height to the width
             mWidth = mHeight;
 
             //And the height to the temp width (old width)
-            mHeight = tempWidth;
+            mHeight = sTempWidth;
         }
 
         /// <summary>
         /// Sets the shape to its old shape (in case of collision)
         /// </summary>
-        public void SetShapeToOldDots()
+        public void UndoRotation()
         {
             //Set the dots to the old shape
             mPixels = mOldPixels;
