@@ -536,15 +536,11 @@ namespace Assignment7
                 bool sAskUserForHighScore = false;
 
                 //If the number of high scores is less than 5, or if the player scored higher than the lowest of the 5 saved (a non zero score), the user will be asked to enter their name
-                if(mScores.Count == 0)
+                if(mScores.Count < 5 && mScore > 0)
                 {
                     sAskUserForHighScore = true;
                 }
-                else if (mScores.Count < 5 && mScore > 0)
-                {
-                    sAskUserForHighScore = true;
-                }
-                else if (mScores.Min(x => x.Score) < mScore && mScore > 0)
+                else if (mScores.Count > 1 && mScores.Min(x => x.Score) < mScore && mScore > 0)
                 {
                     sAskUserForHighScore = true;
                 }
