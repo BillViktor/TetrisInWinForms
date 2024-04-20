@@ -547,8 +547,8 @@ namespace Assignment7
 
                 Hide();
                 GameOverForm sGameOverForm = new GameOverForm(mScore, sAskUserForHighScore);
-                sGameOverForm.Show();
-
+                var sResult = sGameOverForm.ShowDialog();
+                Close();
                 return true;
             }
 
