@@ -133,6 +133,7 @@
             Name = "HighScoreForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Tetris in WinForms";
+            FormClosing += HighScoreForm_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }

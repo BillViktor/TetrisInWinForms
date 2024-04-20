@@ -1,6 +1,5 @@
 ﻿using Assignment7.Properties;
 using System.Media;
-using System.Numerics;
 
 namespace Assignment7
 {
@@ -8,6 +7,9 @@ namespace Assignment7
     {
         //Private fields
         private SoundPlayer player;
+
+        //Flag to keep track if the close event should exit the application or just close the form
+        private bool mExitApplication = true;
 
         public StartGameForm()
         {
@@ -30,6 +32,7 @@ namespace Assignment7
         /// <param name="e"></param>
         private void btnMenu_Click(object sender, EventArgs e)
         {
+            mExitApplication = false;
             DialogResult = DialogResult.Cancel;
             Close();
         }
@@ -42,7 +45,7 @@ namespace Assignment7
         private void btnStart_Click(object sender, EventArgs e)
         {
             //Make sure the level input is valid
-            if(!ValidateInputs())
+            if (!ValidateInputs())
             {
                 return;
             }
@@ -66,19 +69,33 @@ namespace Assignment7
         {
             int level;
 
-            if(!int.TryParse(textBoxLvl.Text, out level))
+            if (!int.TryParse(textBoxLvl.Text, out level))
             {
                 MessageBox.Show("Invalid Level!");
                 return false;
             }
 
-            if(level < 0 || level > 29)
+            if (level < 0 || level > 29)
             {
                 MessageBox.Show("Invalid Level!");
                 return false;
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Override the FormClosing event to allow the user to exit the entire application on the Exit button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StartGameForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Check if the form is being closed by the close button
+            if (mExitApplication)
+            {
+                Application.Exit();
+            }
         }
     }
 }

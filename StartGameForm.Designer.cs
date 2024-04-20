@@ -193,6 +193,7 @@
             Name = "StartGameForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Tetris in WinForms";
+            FormClosing += StartGameForm_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }
