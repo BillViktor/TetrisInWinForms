@@ -1,4 +1,6 @@
-﻿namespace Assignment7
+﻿using Assignment7.Models;
+
+namespace Assignment7.Classes
 {
     public class ShapeCreator
     {
@@ -134,7 +136,7 @@
             sShape = mShapes.FirstOrDefault(x => x.Name == aName);
 
             //If not found, get a random one
-            if(sShape == null)
+            if (sShape == null)
             {
                 sShape = GetRandomShape();
             }

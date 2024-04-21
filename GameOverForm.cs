@@ -1,4 +1,6 @@
-﻿namespace Assignment7
+﻿using Assignment7.Models;
+
+namespace Assignment7
 {
     public partial class GameOverForm : Form
     {

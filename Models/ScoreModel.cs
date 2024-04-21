@@ -1,4 +1,4 @@
-﻿namespace Assignment7
+﻿namespace Assignment7.Models
 {
     public class ScoreModel
     {

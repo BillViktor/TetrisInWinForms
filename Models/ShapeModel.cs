@@ -1,4 +1,4 @@
-﻿namespace Assignment7
+﻿namespace Assignment7.Models
 {
     public class ShapeModel
     {
@@ -14,12 +14,12 @@
 
         //Properties
         public string Name { get { return mName; } set { if (!string.IsNullOrEmpty(value)) mName = value; } }
-        public int Width { get { return mWidth; } set { if(value > 0) mWidth = value;} }
+        public int Width { get { return mWidth; } set { if (value > 0) mWidth = value; } }
         public int Height { get { return mHeight; } set { if (value > 0) mHeight = value; } }
         public SpriteModel[,] Pixels { get { return mPixels; } set { if (value != null) mPixels = value; } }
         public Color Color { get { return mColor; } set { mColor = value; } }
         public int PositionX { get { return mPositionX; } set { mPositionX = value; } }
-        public int PositionY { get {  return mPositionY; } set { mPositionY = value; } }
+        public int PositionY { get { return mPositionY; } set { mPositionY = value; } }
 
         /// <summary>
         /// Rotates the shape clockwise

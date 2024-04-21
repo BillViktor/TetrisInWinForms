@@ -1,3 +1,5 @@
+using Assignment7.Classes;
+using Assignment7.Models;
 using Assignment7.Properties;
 using NAudio.Wave;
 using System.Media;
@@ -399,7 +401,7 @@ namespace Assignment7
             mCanvasNextShapeGraphics.FillRectangle(Brushes.Black, 0, 0, mCanvasNextShapeBitmap.Width, mCanvasNextShapeBitmap.Height);
 
             //Get the center of the Next Shape Canvas
-            int posX = (mCanvasNextShapeWidth - shape.Width) / 2;
+            int posX = (mCanvasNextShapeWidth - shape.Width) / 2 ;
             int posY = (mCanvasNextShapeHeight + 2 - shape.Height) / 2;
 
             //Draw the shape in the canvas
@@ -430,7 +432,7 @@ namespace Assignment7
             //Get a random shape with a random color
             ShapeModel sShape = mShapeCreator.GetRandomShape();
 
-            sShape.PositionX = cCanvasGameWidth / 2; //Set the X position to the middle
+            sShape.PositionX = cCanvasGameWidth / 2 - 2; //Set the X position to the middle
             sShape.PositionY = -sShape.Height; //Set Y position to negative the shapes height (so it starts above the game window)
 
             return sShape;
@@ -442,24 +444,25 @@ namespace Assignment7
         private void CheckRows()
         {
             //Flag to keep track of if we have to update the graphics
-            int rowsCleared = 0;
+            int sRowsCleared = 0;
 
             //Look through all rows and see if any is filled
             for (int y = 0; y < cCanvasGameHeight; y++)
             {
-                bool rowIsFilled = true;
+                bool sRowIsFilled = true;
                 for (int x = 0; x < cCanvasGameWidth; x++)
                 {
-                    //If it's 0, break, the row is n
+                    //If it's null (no sprite there, break, the row is not cleared,
                     if (mCanvasGameArray[x, y] == null)
                     {
-                        rowIsFilled = false;
+                        sRowIsFilled = false;
+                        break;
                     }
                 }
 
-                if (rowIsFilled)
+                if (sRowIsFilled)
                 {
-                    rowsCleared++;
+                    sRowsCleared++;
                     //Update the array
                     for (int x = 0; x < cCanvasGameWidth; x++)
                     {
@@ -474,7 +477,7 @@ namespace Assignment7
             }
 
             //If any row was cleared, we have to update the graphics
-            if (rowsCleared > 0)
+            if (sRowsCleared > 0)
             {
                 for (int x = 0; x < cCanvasGameWidth; x++)
                 {
@@ -496,7 +499,7 @@ namespace Assignment7
                 pictureBoxGame.Image = mCanvasGameBitmap;
 
                 //Play the sound for either tetris or row cleared
-                if (rowsCleared >= 4)
+                if (sRowsCleared >= 4)
                 {
                     PlaySoundEffect(SoundEffects.Tetris);
                 }
@@ -505,7 +508,7 @@ namespace Assignment7
                     PlaySoundEffect(SoundEffects.RowsCleared);
                 }
 
-                UpdateScore(rowsCleared);
+                UpdateScore(sRowsCleared);
             }
             else
             {
