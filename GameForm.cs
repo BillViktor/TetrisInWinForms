@@ -345,12 +345,12 @@ namespace Assignment7
         /// Moves the shape
         /// </summary>
         /// <param name="aMoveDown">0 = don't move, 1 = down</param>
-        /// <param name="moveSide">-1 = left, 0 = don't move, 1 = right</param>
+        /// <param name="aMoveSide">-1 = left, 0 = don't move, 1 = right</param>
         /// <returns>False if collision, true if not</returns>
-        private bool MoveShape(int aMoveDown, int moveSide)
+        private bool MoveShape(int aMoveDown, int aMoveSide)
         {
             //Get the new position of the shape
-            int sNewPosX = mCurrentShape.PositionX + moveSide;
+            int sNewPosX = mCurrentShape.PositionX + aMoveSide;
             int sNewPosY = mCurrentShape.PositionY + aMoveDown;
 
             //Check if the shape will the bottom or side
@@ -376,7 +376,7 @@ namespace Assignment7
             mCurrentShape.PositionY = sNewPosY;
 
             //Play sound effect if we move sideways
-            if (moveSide != 0)
+            if (aMoveSide != 0)
             {
                 PlaySoundEffect(SoundEffects.MoveShapeSound);
             }
