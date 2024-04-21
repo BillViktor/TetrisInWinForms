@@ -1,6 +1,6 @@
 ﻿using Assignment7.Models;
 
-namespace Assignment7
+namespace Assignment7.Classes
 {
     public class FileManager
     {
@@ -34,7 +34,7 @@ namespace Assignment7
                     streamWriter.WriteLine($"{aScoreList[i].Name}\t{aScoreList[i].Score}");
                 }
             }
-            catch 
+            catch
             {
                 ok = false;
             }

@@ -2,16 +2,16 @@
 
 namespace Assignment7.Classes
 {
-    public class ShapeCreator
+    public static class ShapeCreator
     {
         //Private fields
-        private ShapeModel[] mShapes;
-        private Color[] mColors;
+        private static ShapeModel[] mShapes;
+        private static Color[] mColors;
 
         /// <summary>
         /// Static constructor, initializes the arrays and sets all the shapes and possible colors
         /// </summary>
-        public ShapeCreator()
+        static ShapeCreator()
         {
             mShapes =
             [
@@ -111,7 +111,7 @@ namespace Assignment7.Classes
         /// Generates a random number for shape and color and returns the shape
         /// </summary>
         /// <returns>A random shape</returns>
-        public ShapeModel GetRandomShape()
+        public static ShapeModel GetRandomShape()
         {
             //Get a random shape and color
             Random sRandom = new Random();
@@ -128,7 +128,7 @@ namespace Assignment7.Classes
         /// </summary>
         /// <param name="name">The name of the shape</param>
         /// <returns>The shape</returns>
-        public ShapeModel GetShapeByName(string aName)
+        public static ShapeModel GetShapeByName(string aName)
         {
             ShapeModel sShape = null;
 

@@ -64,18 +64,14 @@ namespace Assignment7
         private List<ScoreModel> mScores;
         private FileManager mFileManager;
 
-        //Helper class to create shapes
-        private ShapeCreator mShapeCreator;
-
         //Flag to keep track if the close event should exit the application or just close the form
         private bool mExitApplication = true;
+
+        private bool mIsCalculating = false;
 
         public GameForm(bool aMusicOn, int aStartLvl)
         {
             InitializeComponent();
-
-            //Initialize the Shape Creator
-            mShapeCreator = new ShapeCreator();
 
             //Set the music & startlvl field field
             mMusicOn = aMusicOn;
@@ -201,6 +197,9 @@ namespace Assignment7
         /// <param name="e"></param>
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
+            if (mIsCalculating) return;
+            mIsCalculating = true;
+
             //Dont allow movement when paused
             if (mGameIsPaused && e.KeyCode != Keys.Enter) return;
 
@@ -258,6 +257,8 @@ namespace Assignment7
                 //If the move was successful and it was a rotation: play sound effect
                 PlaySoundEffect(SoundEffects.RotateShape);
             }
+
+            mIsCalculating = false;
         }
 
         /// <summary>
@@ -317,6 +318,10 @@ namespace Assignment7
         /// <param name="eventArgs"></param>
         private void TimerTick(object sender, EventArgs eventArgs)
         {
+            //Use a flag to avoid this function running twice
+            if (mIsCalculating) return;
+            mIsCalculating = true;
+
             //Check if the shape reached the bottom
             bool sSuccessfulMove = MoveShape(1, 0);
 
@@ -341,6 +346,7 @@ namespace Assignment7
                     CheckHeightForMusic();
                 }
             }
+            mIsCalculating = false;
         }
 
         /// <summary>
@@ -430,7 +436,7 @@ namespace Assignment7
         private ShapeModel GetRandomShape()
         {
             //Get a random shape with a random color
-            ShapeModel sShape = mShapeCreator.GetRandomShape();
+            ShapeModel sShape = ShapeCreator.GetRandomShape();
 
             sShape.PositionX = cCanvasGameWidth / 2 - 2; //Set the X position to the middle
             sShape.PositionY = -sShape.Height; //Set Y position to negative the shapes height (so it starts above the game window)
@@ -798,13 +804,13 @@ namespace Assignment7
             //Get all shapes to show in the statistics, in the following order
             ShapeModel[] sShapes =
             {
-                mShapeCreator.GetShapeByName("T"),
-                mShapeCreator.GetShapeByName("J"),
-                mShapeCreator.GetShapeByName("Z"),
-                mShapeCreator.GetShapeByName("O"),
-                mShapeCreator.GetShapeByName("S"),
-                mShapeCreator.GetShapeByName("L"),
-                mShapeCreator.GetShapeByName("I"),
+                ShapeCreator.GetShapeByName("T"),
+                ShapeCreator.GetShapeByName("J"),
+                ShapeCreator.GetShapeByName("Z"),
+                ShapeCreator.GetShapeByName("O"),
+                ShapeCreator.GetShapeByName("S"),
+                ShapeCreator.GetShapeByName("L"),
+                ShapeCreator.GetShapeByName("I"),
             };
 
             //Rotate the I

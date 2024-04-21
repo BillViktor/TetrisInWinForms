@@ -1,4 +1,5 @@
-﻿using Assignment7.Models;
+﻿using Assignment7.Classes;
+using Assignment7.Models;
 
 namespace Assignment7
 {
