@@ -67,8 +67,6 @@ namespace Assignment7
         //Flag to keep track if the close event should exit the application or just close the form
         private bool mExitApplication = true;
 
-        private bool mIsCalculating = false;
-
         public GameForm(bool aMusicOn, int aStartLvl)
         {
             InitializeComponent();
@@ -197,15 +195,12 @@ namespace Assignment7
         /// <param name="e"></param>
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (mIsCalculating) return;
-            mIsCalculating = true;
-
             //Dont allow movement when paused
             if (mGameIsPaused && e.KeyCode != Keys.Enter) return;
 
             //Variables for moving the shape
-            int xMove = 0;
-            int yMove = 0;
+            int sXMove = 0;
+            int sYMove = 0;
 
             bool sRotationSuccess = false;
 
@@ -213,13 +208,13 @@ namespace Assignment7
             switch (e.KeyCode)
             {
                 case (Keys.Left):
-                    xMove = -1;
+                    sXMove = -1;
                     break;
                 case (Keys.Right):
-                    xMove = 1;
+                    sXMove = 1;
                     break;
                 case (Keys.Down):
-                    yMove = 1;
+                    sYMove = 1;
                     break;
                 case (Keys.Z):
                     if (IsRotationAllowed())
@@ -245,20 +240,18 @@ namespace Assignment7
                     break;
             }
 
-            bool successfulMove = MoveShape(yMove, xMove);
+            bool sSuccessfulMove = MoveShape(sYMove, sXMove);
 
             //If the move was unsuccessful and the player tried to rotate the shape, revert it
-            if (!successfulMove && (e.KeyCode == Keys.X || e.KeyCode == Keys.Z))
+            if (!sSuccessfulMove && (e.KeyCode == Keys.X || e.KeyCode == Keys.Z))
             {
                 mCurrentShape.UndoRotation();
             }
-            else if (successfulMove && (e.KeyCode == Keys.X || e.KeyCode == Keys.Z) && mCurrentShape.Name != "O" && sRotationSuccess)
+            else if (sSuccessfulMove && (e.KeyCode == Keys.X || e.KeyCode == Keys.Z) && mCurrentShape.Name != "O" && sRotationSuccess)
             {
                 //If the move was successful and it was a rotation: play sound effect
                 PlaySoundEffect(SoundEffects.RotateShape);
             }
-
-            mIsCalculating = false;
         }
 
         /// <summary>
@@ -318,10 +311,6 @@ namespace Assignment7
         /// <param name="eventArgs"></param>
         private void TimerTick(object sender, EventArgs eventArgs)
         {
-            //Use a flag to avoid this function running twice
-            if (mIsCalculating) return;
-            mIsCalculating = true;
-
             //Check if the shape reached the bottom
             bool sSuccessfulMove = MoveShape(1, 0);
 
@@ -346,7 +335,6 @@ namespace Assignment7
                     CheckHeightForMusic();
                 }
             }
-            mIsCalculating = false;
         }
 
         /// <summary>
@@ -401,24 +389,24 @@ namespace Assignment7
         private ShapeModel GetNextShape()
         {
             //Get a random shape
-            ShapeModel shape = GetRandomShape();
+            ShapeModel sShape = GetRandomShape();
 
             //Clear the next shape canvas
             mCanvasNextShapeGraphics.FillRectangle(Brushes.Black, 0, 0, mCanvasNextShapeBitmap.Width, mCanvasNextShapeBitmap.Height);
 
             //Get the center of the Next Shape Canvas
-            int posX = (mCanvasNextShapeWidth - shape.Width) / 2 ;
-            int posY = (mCanvasNextShapeHeight + 2 - shape.Height) / 2;
+            int sPosX = (mCanvasNextShapeWidth - sShape.Width) / 2 ;
+            int sPosY = (mCanvasNextShapeHeight + 2 - sShape.Height) / 2;
 
             //Draw the shape in the canvas
-            for (int x = 0; x < shape.Width; x++)
+            for (int x = 0; x < sShape.Width; x++)
             {
-                for (int y = 0; y < shape.Height; y++)
+                for (int y = 0; y < sShape.Height; y++)
                 {
-                    if (shape.Pixels[y, x] != null)
+                    if (sShape.Pixels[y, x] != null)
                     {
-                        Bitmap sprite = GetSprite(shape.Color);
-                        mCanvasNextShapeGraphics.DrawImage(sprite, (posX + x) * cPixelSize, (posY + y) * cPixelSize, cPixelSize, cPixelSize);
+                        Bitmap sprite = GetSprite(sShape.Color);
+                        mCanvasNextShapeGraphics.DrawImage(sprite, (sPosX + x) * cPixelSize, (sPosY + y) * cPixelSize, cPixelSize, cPixelSize);
                     }
                 }
             }
@@ -426,7 +414,7 @@ namespace Assignment7
             //Set the picture box to contain the canvas
             pictureBoxNext.Image = mCanvasNextShapeBitmap;
 
-            return shape;
+            return sShape;
         }
 
         /// <summary>
@@ -667,39 +655,39 @@ namespace Assignment7
         private int SetSpeedForLevel()
         {
             //The starting framesPerMove is 48 in the original Tetris
-            int framesPerMove = 48;
+            int sFramesPerMove = 48;
 
             if (mLevel >= 0 && mLevel <= 8)
             {
-                framesPerMove -= mLevel * 5;
+                sFramesPerMove -= mLevel * 5;
             }
             else if (mLevel == 9)
             {
-                framesPerMove = 6;
+                sFramesPerMove = 6;
             }
             else if (mLevel > 9 && mLevel <= 12)
             {
-                framesPerMove = 5;
+                sFramesPerMove = 5;
             }
             else if (mLevel > 12 && mLevel <= 15)
             {
-                framesPerMove = 4;
+                sFramesPerMove = 4;
             }
             else if (mLevel > 15 && mLevel <= 18)
             {
-                framesPerMove = 3;
+                sFramesPerMove = 3;
             }
             else if (mLevel > 18 && mLevel <= 28)
             {
-                framesPerMove = 2;
+                sFramesPerMove = 2;
             }
             else
             {
-                framesPerMove = 1;
+                sFramesPerMove = 1;
             }
 
             //We multiply by a thousand (since the timer uses ms), and divide by 60. Since the original Tetris was made for 60fps
-            return framesPerMove * 1000 / 60;
+            return sFramesPerMove * 1000 / 60;
         }
         #endregion
 
