@@ -316,9 +316,9 @@ namespace Assignment7
         private void TimerTick(object sender, EventArgs eventArgs)
         {
             //Check if the shape reached the bottom
-            bool successfulMove = MoveShape(1, 0);
+            bool sSuccessfulMove = MoveShape(1, 0);
 
-            if (!successfulMove)
+            if (!sSuccessfulMove)
             {
                 //Update the graphics
                 mCanvasGameBitmap = new Bitmap(mCurrentBitmap);
