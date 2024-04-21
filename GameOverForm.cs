@@ -41,6 +41,7 @@
         /// <param name="e"></param>
         private void btnMenu_Click(object sender, EventArgs e)
         {
+            mExitApplication = false;
             Close();
         }
 

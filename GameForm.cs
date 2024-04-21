@@ -315,7 +315,7 @@ namespace Assignment7
         /// <param name="eventArgs"></param>
         private void TimerTick(object sender, EventArgs eventArgs)
         {
-            //Check if the shape reached the bottom or touched any other shapes
+            //Check if the shape reached the bottom
             bool successfulMove = MoveShape(1, 0);
 
             if (!successfulMove)
@@ -344,14 +344,14 @@ namespace Assignment7
         /// <summary>
         /// Moves the shape
         /// </summary>
-        /// <param name="moveDown">0 = don't move, 1 = down</param>
+        /// <param name="aMoveDown">0 = don't move, 1 = down</param>
         /// <param name="moveSide">-1 = left, 0 = don't move, 1 = right</param>
         /// <returns>False if collision, true if not</returns>
-        private bool MoveShape(int moveDown, int moveSide)
+        private bool MoveShape(int aMoveDown, int moveSide)
         {
             //Get the new position of the shape
             int sNewPosX = mCurrentShape.PositionX + moveSide;
-            int sNewPosY = mCurrentShape.PositionY + moveDown;
+            int sNewPosY = mCurrentShape.PositionY + aMoveDown;
 
             //Check if the shape will the bottom or side
             if (sNewPosX < 0 || sNewPosX + mCurrentShape.Width > cCanvasGameWidth || sNewPosY + mCurrentShape.Height > cCanvasGameHeight)
