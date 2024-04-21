@@ -1,6 +1,4 @@
-﻿using static System.Formats.Asn1.AsnWriter;
-
-namespace Assignment7
+﻿namespace Assignment7
 {
     public partial class GameOverForm : Form
     {
@@ -9,6 +7,9 @@ namespace Assignment7
 
         private int mScore;
         private bool mAskUserForHighScore;
+
+        //Flag to keep track if the close event should exit the application or just close the form
+        private bool mExitApplication = true;
 
         public GameOverForm(int aScore, bool aAskUserForHighScore)
         {
@@ -52,7 +53,7 @@ namespace Assignment7
         private void btnSave_Click(object sender, EventArgs e)
         {
             //Input validation
-            if(string.IsNullOrEmpty(textBoxName.Text))
+            if (string.IsNullOrEmpty(textBoxName.Text))
             {
                 MessageBox.Show("Invalid Name Input!", "Error");
                 return;
@@ -61,16 +62,16 @@ namespace Assignment7
             //Initialize the file manager and create a score list
             List<ScoreModel> sScores = new List<ScoreModel>();
             FileManager sFileManager = new FileManager();
-            
+
             //Load the score list
-            if(!sFileManager.ReadScoreListFromFile(sScores, cFileName))
+            if (!sFileManager.ReadScoreListFromFile(sScores, cFileName))
             {
                 MessageBox.Show("Could not load high score list!", "Error");
                 Application.Exit();
             }
 
             //If the count is 5 or greater, remove the least scores
-            if(sScores.Count >= 5)
+            if (sScores.Count >= 5)
             {
                 sScores = sScores.OrderByDescending(x => x.Score).Take(4).ToList();
             }
@@ -82,14 +83,30 @@ namespace Assignment7
             sScores.Add(sScore);
 
             //Save the score
-            if(!sFileManager.SaveScoreListToFile(sScores, cFileName))
+            if (!sFileManager.SaveScoreListToFile(sScores, cFileName))
             {
                 MessageBox.Show("Could not save high score list!", "Error");
                 Application.Exit();
             }
 
+            mExitApplication = false;
+
             //Close the form
             Close();
+        }
+
+        /// <summary>
+        /// Override the FormClosing event to allow the user to exit the entire application on the Exit button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GameOverForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Check if the form is being closed by the close button
+            if (mExitApplication)
+            {
+                Application.Exit();
+            }
         }
     }
 }

@@ -379,6 +379,7 @@
             Name = "GameForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Tetris in WinForms";
+            FormClosing += GameForm_FormClosing;
             KeyDown += MainForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)pictureBoxGame).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStatistics).EndInit();

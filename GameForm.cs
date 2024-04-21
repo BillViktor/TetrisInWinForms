@@ -62,7 +62,11 @@ namespace Assignment7
         private List<ScoreModel> mScores;
         private FileManager mFileManager;
 
+        //Helper class to create shapes
         private ShapeCreator mShapeCreator;
+
+        //Flag to keep track if the close event should exit the application or just close the form
+        private bool mExitApplication = true;
 
         public GameForm(bool aMusicOn, int aStartLvl)
         {
@@ -176,7 +180,7 @@ namespace Assignment7
                     if (mCurrentShape.Pixels[y, x] != null)
                     {
                         //Check if the game is over (the shape is above the game array)
-                        if(CheckIfGameIsOver()) return;
+                        if (CheckIfGameIsOver()) return;
 
                         mCanvasGameArray[mCurrentShape.PositionX + x, mCurrentShape.PositionY + y] = new SpriteModel(mCurrentShape.Color);
                     }
@@ -217,16 +221,16 @@ namespace Assignment7
                     yMove = 1;
                     break;
                 case (Keys.Z):
-                    if(IsRotationAllowed())
+                    if (IsRotationAllowed())
                     {
                         sRotationSuccess = true;
                         mLastRotationTime = DateTime.Now;
                         mCurrentShape.RotateShapeCounterClockWise();
                     }
-                    
+
                     break;
                 case (Keys.X):
-                    if(IsRotationAllowed())
+                    if (IsRotationAllowed())
                     {
                         sRotationSuccess = true;
                         mLastRotationTime = DateTime.Now;
@@ -260,7 +264,7 @@ namespace Assignment7
         /// <returns>True if rotation is allowed, false otherwise</returns>
         private bool IsRotationAllowed()
         {
-            if((DateTime.Now-mLastRotationTime).TotalMilliseconds >= cRotationCoolDownInMilliSeconds)
+            if ((DateTime.Now - mLastRotationTime).TotalMilliseconds >= cRotationCoolDownInMilliSeconds)
             {
                 return true;
             }
@@ -427,7 +431,7 @@ namespace Assignment7
             ShapeModel sShape = mShapeCreator.GetRandomShape();
 
             sShape.PositionX = cCanvasGameWidth / 2; //Set the X position to the middle
-            sShape.PositionY = sShape.Height; //Set Y position to negative the shapes height (so it starts above the game window)
+            sShape.PositionY = -sShape.Height; //Set Y position to negative the shapes height (so it starts above the game window)
 
             return sShape;
         }
@@ -540,7 +544,7 @@ namespace Assignment7
                 bool sAskUserForHighScore = false;
 
                 //If the number of high scores is less than 5, or if the player scored higher than the lowest of the 5 saved (a non zero score), the user will be asked to enter their name
-                if(mScores.Count < 5 && mScore > 0)
+                if (mScores.Count < 5 && mScore > 0)
                 {
                     sAskUserForHighScore = true;
                 }
@@ -549,6 +553,7 @@ namespace Assignment7
                     sAskUserForHighScore = true;
                 }
 
+                mExitApplication = false;
                 Hide();
                 GameOverForm sGameOverForm = new GameOverForm(mScore, sAskUserForHighScore);
                 var sResult = sGameOverForm.ShowDialog();
@@ -917,5 +922,19 @@ namespace Assignment7
             }
         }
         #endregion
+
+        /// <summary>
+        /// Override the FormClosing event to allow the user to exit the entire application on the Exit button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Check if the form is being closed by the close button
+            if (mExitApplication)
+            {
+                Application.Exit();
+            }
+        }
     }
 }
