@@ -118,13 +118,6 @@
             ShapeModel sShape = mShapes[sRandomShape];
             sShape.Color = mColors[sRandomColor];
 
-            //Rotate the shape randomly
-            int sRandomNumbOfRotations = sRandom.Next(4);
-            for(int i = 0; i<sRandomNumbOfRotations; i++)
-            {
-                sShape.RotateShapeClockWise();
-            }
-
             return sShape;
         }
 

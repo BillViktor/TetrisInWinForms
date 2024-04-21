@@ -427,7 +427,7 @@ namespace Assignment7
             ShapeModel sShape = mShapeCreator.GetRandomShape();
 
             sShape.PositionX = cCanvasGameWidth / 2; //Set the X position to the middle
-            sShape.PositionY = -sShape.Height; //Set Y position to negative the shapes height (so it starts above the game window)
+            sShape.PositionY = sShape.Height; //Set Y position to negative the shapes height (so it starts above the game window)
 
             return sShape;
         }
