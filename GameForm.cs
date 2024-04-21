@@ -424,12 +424,12 @@ namespace Assignment7
         private ShapeModel GetRandomShape()
         {
             //Get a random shape with a random color
-            ShapeModel shape = mShapeCreator.GetRandomShape();
+            ShapeModel sShape = mShapeCreator.GetRandomShape();
 
-            shape.PositionX = cCanvasGameWidth / 2; //Set the X position to the middle
-            shape.PositionY = -shape.Height; //Set Y position to negative the shapes height (so it starts above the game window)
+            sShape.PositionX = cCanvasGameWidth / 2; //Set the X position to the middle
+            sShape.PositionY = -sShape.Height; //Set Y position to negative the shapes height (so it starts above the game window)
 
-            return shape;
+            return sShape;
         }
 
         /// <summary>
@@ -788,7 +788,7 @@ namespace Assignment7
         private void DrawShapesStatistics()
         {
             //Get all shapes to show in the statistics, in the following order
-            ShapeModel[] shapes =
+            ShapeModel[] sShapes =
             {
                 mShapeCreator.GetShapeByName("T"),
                 mShapeCreator.GetShapeByName("J"),
@@ -799,17 +799,20 @@ namespace Assignment7
                 mShapeCreator.GetShapeByName("I"),
             };
 
+            //Rotate the I
+            sShapes[sShapes.Length - 1].RotateShapeClockWise();
+
             //Draw each shape with the helper method
-            for (int i = 0; i < shapes.Length; i++)
+            for (int i = 0; i < sShapes.Length; i++)
             {
                 //Draw I with larger margin
-                if (shapes[i].Name == "I")
+                if (sShapes[i].Name == "I")
                 {
-                    DrawShape(shapes[i], 5 + i * 3, 1);
+                    DrawShape(sShapes[i], 5 + i * 3, 1);
                 }
                 else
                 {
-                    DrawShape(shapes[i], 4 + i * 3, 2);
+                    DrawShape(sShapes[i], 4 + i * 3, 2);
                 }
             }
         }

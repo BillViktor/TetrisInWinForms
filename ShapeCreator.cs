@@ -111,12 +111,21 @@
         /// <returns>A random shape</returns>
         public ShapeModel GetRandomShape()
         {
-            Random random = new Random();
-            int randomShape = random.Next(mShapes.Length);
-            int randomColor = random.Next(mColors.Length);
-            ShapeModel shape = mShapes[randomShape];
-            shape.Color = mColors[randomColor];
-            return shape;
+            //Get a random shape and color
+            Random sRandom = new Random();
+            int sRandomShape = sRandom.Next(mShapes.Length);
+            int sRandomColor = sRandom.Next(mColors.Length);
+            ShapeModel sShape = mShapes[sRandomShape];
+            sShape.Color = mColors[sRandomColor];
+
+            //Rotate the shape randomly
+            int sRandomNumbOfRotations = sRandom.Next(4);
+            for(int i = 0; i<sRandomNumbOfRotations; i++)
+            {
+                sShape.RotateShapeClockWise();
+            }
+
+            return sShape;
         }
 
         /// <summary>
@@ -126,28 +135,23 @@
         /// <returns>The shape</returns>
         public ShapeModel GetShapeByName(string aName)
         {
-            ShapeModel shape = null;
+            ShapeModel sShape = null;
 
             //If it's an I, rotate it so it's horizontal
-            if(aName == "I")
+            sShape = mShapes.FirstOrDefault(x => x.Name == aName);
+
+            //If not found, get a random one
+            if(sShape == null)
             {
-                shape = mShapes.First(x => x.Name == aName);
-                shape.RotateShapeClockWise();
-            }
-            if (mShapes.Any(x => x.Name == aName))
-            {
-                shape = mShapes.First(x => x.Name == aName);
+                sShape = GetRandomShape();
             }
 
             //Set a random color
-            if(shape != null)
-            {
-                Random random = new Random();
-                int randomColor = random.Next(mColors.Length);
-                shape.Color = mColors[randomColor];
-            }
+            Random sRandom = new Random();
+            int sRandomColor = sRandom.Next(mColors.Length);
+            sShape.Color = mColors[sRandomColor];
 
-            return shape;
+            return sShape;
         }
     }
 }
