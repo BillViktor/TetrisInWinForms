@@ -310,10 +310,8 @@ namespace Assignment7
         /// <param name="eventArgs"></param>
         private void TimerTick(object sender, EventArgs eventArgs)
         {
-            //Check if the shape reached the bottom
-            bool sSuccessfulMove = MoveShape(1, 0);
-
-            if (!sSuccessfulMove)
+            //If the move wasn't successful, update the graphics, array, statistics, get next shape etc
+            if (!MoveShape(1, 0))
             {
                 //Update the graphics
                 mCanvasGameBitmap = new Bitmap(mCurrentBitmap);
@@ -349,7 +347,7 @@ namespace Assignment7
             int sNewPosX = mCurrentShape.PositionX + aMoveSide;
             int sNewPosY = mCurrentShape.PositionY + aMoveDown;
 
-            //Check if the shape will touch the bottom or side
+            //Check if the shape will reach the bottom or side
             if (sNewPosX < 0 || sNewPosX + mCurrentShape.Width > cCanvasGameWidth || sNewPosY + mCurrentShape.Height > cCanvasGameHeight)
             {
                 return false;
@@ -377,6 +375,7 @@ namespace Assignment7
                 PlaySoundEffect(SoundEffects.MoveShapeSound);
             }
 
+            //Draw the shape
             DrawShape();
 
             return true;
@@ -426,6 +425,7 @@ namespace Assignment7
             //Get a random shape with a random color
             ShapeModel sShape = ShapeCreator.GetRandomShape();
 
+            //Set the positioning of the shape
             sShape.PositionX = cCanvasGameWidth / 2 - 2; //Set the X position to the middle
             sShape.PositionY = -sShape.Height; //Set Y position to negative the shapes height (so it starts above the game window)
 
@@ -532,6 +532,7 @@ namespace Assignment7
         /// </summary>
         private bool CheckIfGameIsOver()
         {
+            //If the Y-positioning of the current shape is above the game box (negative), stop the game
             if (mCurrentShape.PositionY < 0)
             {
                 timer.Stop();
@@ -579,8 +580,8 @@ namespace Assignment7
                 {
                     if (mCurrentShape.Pixels[y, x] != null)
                     {
-                        Bitmap bitmap = GetSprite(mCurrentShape.Color);
-                        mCurrentGraphics.DrawImage(bitmap, (mCurrentShape.PositionX + x) * cPixelSize, (mCurrentShape.PositionY + y) * cPixelSize, cPixelSize, cPixelSize);
+                        Bitmap sBitMap = GetSprite(mCurrentShape.Color);
+                        mCurrentGraphics.DrawImage(sBitMap, (mCurrentShape.PositionX + x) * cPixelSize, (mCurrentShape.PositionY + y) * cPixelSize, cPixelSize, cPixelSize);
                     }
                 }
             }
@@ -718,7 +719,7 @@ namespace Assignment7
             pictureBoxGame.Width = cCanvasGameWidth * cPixelSize;
             pictureBoxGame.Height = cCanvasGameHeight * cPixelSize;
 
-            //Create Bitmap with picture box's size
+            //Initialize the bitmap, fill the game with black
             mCanvasGameBitmap = new Bitmap(pictureBoxGame.Width, pictureBoxGame.Height);
             mCanvasGameGraphics = Graphics.FromImage(mCanvasGameBitmap);
             mCanvasGameGraphics.FillRectangle(Brushes.Black, 0, 0, mCanvasGameBitmap.Width, mCanvasGameBitmap.Height);
@@ -726,7 +727,7 @@ namespace Assignment7
             //Set the bitmap to the picturebox
             pictureBoxGame.Image = mCanvasGameBitmap;
 
-            //Initialize canvas dot array
+            //Initialize the game array
             mCanvasGameArray = new SpriteModel[cCanvasGameWidth, cCanvasGameHeight];
         }
 

@@ -95,7 +95,7 @@
         }
 
         /// <summary>
-        /// Sets the shape to its old shape (in case of collision)
+        /// Sets the shape to its old shape (in case of collision when rotating)
         /// </summary>
         public void UndoRotation()
         {
