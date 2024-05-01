@@ -8,12 +8,13 @@
         //Property
         public Color Color { get { return mColor; } set { mColor = value; } }
 
-        //Constructors
+        //Constructor with Color as argument
         public SpriteModel(Color aColor)
         {
             mColor = aColor;
         }
 
+        //Empty constructor
         public SpriteModel() { }
     }
 }

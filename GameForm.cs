@@ -11,11 +11,11 @@ namespace Assignment7
         //Fields
         //Constants
         private const int cPixelSize = 32; //A block is 32 pixels big
-        private const string cFileName = "TetrisScores.txt";
-        private const int cRotationCoolDownInMilliSeconds = 200; //Only allow rotation every 200ms
+        private const string cFileName = "TetrisScores.txt"; //Filename for the high score file to show the high score
+        private const int cRotationAndPauseCoolDownInMilliSeconds = 200; //Only allow rotation every 200ms
 
-        private DateTime mLastRotationTime;
-        private DateTime mLastPauseTime;
+        private DateTime mLastRotationTime; //Kepps track of the last time the piece was rotated
+        private DateTime mLastPauseTime; //Keeps track of the last time the game was paused
 
         //Game Box
         private const int cCanvasGameWidth = 10; //Game is 10 blocks wide
@@ -162,7 +162,7 @@ namespace Assignment7
         }
 
         /// <summary>
-        /// Set the game array to one (fill the blocks) where the shape is
+        /// Add SpriteModels where the shape is
         /// </summary>
         private void UpdateGameArray()
         {
@@ -175,7 +175,7 @@ namespace Assignment7
                     //If the shape has a block there (1 == block, 0 == empty)
                     if (mCurrentShape.Pixels[y, x] != null)
                     {
-                        //Check if the game is over (the shape is above the game array)
+                        //Check if the game is over (the shape is above the game array), in that case, return without updatíng the array
                         if (CheckIfGameIsOver()) return;
 
                         mCanvasGameArray[mCurrentShape.PositionX + x, mCurrentShape.PositionY + y] = new SpriteModel(mCurrentShape.Color);
@@ -223,7 +223,6 @@ namespace Assignment7
                         mLastRotationTime = DateTime.Now;
                         mCurrentShape.RotateShapeCounterClockWise();
                     }
-
                     break;
                 case (Keys.X):
                     if (IsRotationAllowed())
@@ -260,7 +259,7 @@ namespace Assignment7
         /// <returns>True if rotation is allowed, false otherwise</returns>
         private bool IsRotationAllowed()
         {
-            if ((DateTime.Now - mLastRotationTime).TotalMilliseconds >= cRotationCoolDownInMilliSeconds)
+            if ((DateTime.Now - mLastRotationTime).TotalMilliseconds >= cRotationAndPauseCoolDownInMilliSeconds)
             {
                 return true;
             }
@@ -273,7 +272,7 @@ namespace Assignment7
         private void PauseGame()
         {
             //Check the cooldown first
-            if ((DateTime.Now - mLastPauseTime).TotalMilliseconds < cRotationCoolDownInMilliSeconds) return;
+            if ((DateTime.Now - mLastPauseTime).TotalMilliseconds < cRotationAndPauseCoolDownInMilliSeconds) return;
 
             mLastPauseTime = DateTime.Now;
 
@@ -323,7 +322,8 @@ namespace Assignment7
 
                 UpdateStatistics();
 
-                mCurrentShape = mNextShape;
+                //Set the current shape to the next shape using the ShapeModels copy constructor (as instances of classes are reference types)
+                mCurrentShape = new ShapeModel(mNextShape);
                 mNextShape = GetNextShape();
 
                 //Check if any rows were filled
@@ -349,7 +349,7 @@ namespace Assignment7
             int sNewPosX = mCurrentShape.PositionX + aMoveSide;
             int sNewPosY = mCurrentShape.PositionY + aMoveDown;
 
-            //Check if the shape will the bottom or side
+            //Check if the shape will touch the bottom or side
             if (sNewPosX < 0 || sNewPosX + mCurrentShape.Width > cCanvasGameWidth || sNewPosY + mCurrentShape.Height > cCanvasGameHeight)
             {
                 return false;
@@ -801,8 +801,11 @@ namespace Assignment7
                 ShapeCreator.GetShapeByName("I"),
             };
 
-            //Rotate the I
-            sShapes[sShapes.Length - 1].RotateShapeClockWise();
+            //Rotate the I, if it's rotated the wrong way
+            if(sShapes[sShapes.Length - 1].Height == 4)
+            {
+                sShapes[sShapes.Length - 1].RotateShapeClockWise();
+            }
 
             //Draw each shape with the helper method
             for (int i = 0; i < sShapes.Length; i++)

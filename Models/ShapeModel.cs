@@ -21,6 +21,23 @@
         public int PositionX { get { return mPositionX; } set { mPositionX = value; } }
         public int PositionY { get { return mPositionY; } set { mPositionY = value; } }
 
+        //Default empty constructor
+        public ShapeModel() { }
+
+        //Copy constructor
+        public ShapeModel(ShapeModel aShape)
+        {
+            mName = aShape.Name;
+            mWidth = aShape.Width;
+            mHeight = aShape.mHeight;
+            mPixels = aShape.Pixels;
+            mColor = aShape.Color;
+            mPositionX = aShape.PositionX;
+            mPositionY = aShape.PositionY;
+            mOldPixels = aShape.mOldPixels;
+        }
+
+        #region Methods
         /// <summary>
         /// Rotates the shape clockwise
         /// </summary>
@@ -94,5 +111,6 @@
             //And the height to the temp width (old width)
             mHeight = sTempWidth;
         }
+        #endregion
     }
 }
