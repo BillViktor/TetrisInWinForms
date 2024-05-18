@@ -108,22 +108,6 @@ namespace Assignment7.Classes
         }
 
         /// <summary>
-        /// Generates a random number for shape and color and returns the shape
-        /// </summary>
-        /// <returns>A random shape</returns>
-        public static ShapeModel GetRandomShape()
-        {
-            //Get a random shape and color
-            Random sRandom = new Random();
-            int sRandomShape = sRandom.Next(mShapes.Length);
-            int sRandomColor = sRandom.Next(mColors.Length);
-            ShapeModel sShape = mShapes[sRandomShape];
-            sShape.Color = mColors[sRandomColor];
-
-            return sShape;
-        }
-
-        /// <summary>
         /// Gets the shape with the specified name
         /// </summary>
         /// <param name="name">The name of the shape</param>
@@ -144,6 +128,22 @@ namespace Assignment7.Classes
             //Set a random color
             Random sRandom = new Random();
             int sRandomColor = sRandom.Next(mColors.Length);
+            sShape.Color = mColors[sRandomColor];
+
+            return sShape;
+        }
+
+        /// <summary>
+        /// Generates a random number for shape and color and returns the shape
+        /// </summary>
+        /// <returns>A random shape</returns>
+        public static ShapeModel GetRandomShape()
+        {
+            //Get a random shape and color
+            Random sRandom = new Random();
+            int sRandomShape = sRandom.Next(mShapes.Length);
+            int sRandomColor = sRandom.Next(mColors.Length);
+            ShapeModel sShape = mShapes[sRandomShape];
             sShape.Color = mColors[sRandomColor];
 
             return sShape;

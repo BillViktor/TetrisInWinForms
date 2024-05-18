@@ -12,7 +12,7 @@ namespace Assignment7
         //Constants
         private const int cPixelSize = 32; //A block is 32 pixels big
         private const string cFileName = "TetrisScores.txt"; //Filename for the high score file to show the high score
-        private const int cRotationAndPauseCoolDownInMilliSeconds = 200; //Only allow rotation every 200ms
+        private const int cRotationAndPauseCoolDownInMilliSeconds = 200; //Only allow rotation and pausing every 200ms
 
         private DateTime mLastRotationTime; //Kepps track of the last time the piece was rotated
         private DateTime mLastPauseTime; //Keeps track of the last time the game was paused
@@ -172,12 +172,13 @@ namespace Assignment7
                 //Iterate through the height of the shape
                 for (int y = 0; y < mCurrentShape.Height; y++)
                 {
-                    //If the shape has a block there (1 == block, 0 == empty)
+                    //If the shape has a block there
                     if (mCurrentShape.Pixels[y, x] != null)
                     {
                         //Check if the game is over (the shape is above the game array), in that case, return without updatíng the array
                         if (CheckIfGameIsOver()) return;
 
+                        //If not, add the SpriteModel to the array
                         mCanvasGameArray[mCurrentShape.PositionX + x, mCurrentShape.PositionY + y] = new SpriteModel(mCurrentShape.Color);
                     }
                 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Assignment7.Properties {
+namespace Tetris.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Assignment7.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Assignment7.Properties.Sprites", typeof(Sprites).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Tetris.Properties.Sprites", typeof(Sprites).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
